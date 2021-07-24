@@ -1,0 +1,25 @@
+<h1><%= link_to '99 Cats', cats_url %></h1>
+
+<h1><%= @c.name %></h1> 
+
+<table border="1" width="300px">
+    <caption><%= @c.name %>'s Details</caption>
+    <tr>
+        <th>Age</th>
+        <td><%= @c.age %></td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td><%= @c.sex == 'm' ? 'Male' : 'Female' %></td>
+    </tr>
+    <tr>
+        <th>Color</th>
+        <td><%= @c.color.capitalize %></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td><%= @c.description %></td>
+    </tr>
+</table>
+
+<p><%= link_to "Edit #{@c.name}\'s details", edit_cat_url(@c) %></p>
