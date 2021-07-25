@@ -29,4 +29,11 @@ class Cat < ApplicationRecord
         #-c.birth_date.years_ago(Time.now.year).year
         time_ago_in_words((Time.now.year - birth_date.year).years.ago)
     end
+
+    has_many :cat_rental_requests,
+        dependent: :destroy
+
+    has_many :ordered_cat_rental_requests,
+        ->(request){order(:start_date)},
+        class_name: :CatRentalRequest
 end
