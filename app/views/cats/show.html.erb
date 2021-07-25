@@ -23,3 +23,32 @@
 </table>
 
 <p><%= link_to "Edit #{@c.name}\'s details", edit_cat_url(@c) %></p>
+
+<% unless @c.ordered_cat_rental_requests.empty? %>
+    <table border="1px">
+        <caption>Submitted requests</caption>
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Status</th>
+                <% if @c.cat_rental_requests.where(status: 'PENDING').exists? %>
+                    <th span="2" align-text="center">Approval</th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <% @c.ordered_cat_rental_requests.each do |request| %>
+                <tr>
+                    <td> <%= request.start_date %> </td>
+                    <td> <%= request.end_date   %> </td>
+                    <td> <%= request.status %>     </td>
+                    <% if request.status == 'PENDING' %>
+                        <td> <%= button_to 'Approve', approve_cat_rental_request_url(request.id),method: :patch %></td>
+                        <td> <%= button_to 'Deny', deny_cat_rental_request_url(request.id), method: :patch %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>
